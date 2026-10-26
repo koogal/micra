@@ -5,6 +5,7 @@ scoreboard players set #door1 niji 0
 scoreboard players set #door2 niji 0
 scoreboard players set #door3 niji 0
 scoreboard players set #door4 niji 0
+scoreboard players set #locker niji 0
 scoreboard players set #seq niji 0
 scoreboard players set #time niji 0
 scoreboard players set #hints niji 0

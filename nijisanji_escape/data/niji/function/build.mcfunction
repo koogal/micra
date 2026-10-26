@@ -120,21 +120,25 @@ setblock 2033 152 2011 minecraft:oak_wall_sign[facing=north]{is_waxed:1b,front_t
 # ===== 3. 配信ブース：コメント欄と伝言 =====
 setblock 2036 152 2011 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['"配信ルール"','"モデレーターは"','"名前が青い"','""']}}
 setblock 2037 152 2011 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['"大事なことは"','"古い順に"','"頭文字だけ"','""']}}
-setblock 2037 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "あめふり", "color": "blue", "bold": true}','"20:57"','"なんか音が"','"出てないかも？"']}}
-setblock 2038 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ねこまる", "color": "dark_gray", "bold": false}','"20:51"','"初見です"','""']}}
-setblock 2039 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ゆきだるま", "color": "blue", "bold": true}','"20:52"','"ぎりぎり"','"間に合った"']}}
-setblock 2040 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "とまと", "color": "dark_gray", "bold": false}','"20:53"','"8888"','""']}}
-setblock 2041 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ほしぞら", "color": "blue", "bold": true}','"20:50"','"みんな、もうすぐ"','"始まるよ！"']}}
-setblock 2039 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "かぜ", "color": "dark_gray", "bold": false}','"20:55"','"待機！"','""']}}
-setblock 2040 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "つきみ", "color": "blue", "bold": true}','"20:56"','"たのしみにしてた"','"人、多いね"']}}
-setblock 2041 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "みかん", "color": "dark_gray", "bold": false}','"20:58"','"こんばんは〜"','""']}}
-setblock 2042 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "にじいろ", "color": "blue", "bold": true}','"20:54"','"のど飴の準備は"','"大丈夫？"']}}
-setblock 2043 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ぺんぎん", "color": "dark_gray", "bold": false}','"20:49"','"わくわく"','""']}}
-# 棚（左はハズレ、右に伝言の本）
+setblock 2037 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "つきみ", "color": "blue", "bold": true}','"20:49"','"にぎやかに"','"なってきた"']}}
+setblock 2038 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ねこまる", "color": "dark_gray", "bold": false}','"20:42"','"初見です"','""']}}
+setblock 2039 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ほしぞら", "color": "blue", "bold": true}','"20:43"','"ん？音量"','"小さくない？"']}}
+setblock 2040 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "とまと", "color": "dark_gray", "bold": false}','"20:48"','"こんばんは〜"','""']}}
+setblock 2041 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "あめふり", "color": "blue", "bold": true}','"20:55"','"ちゃんと水分"','"とってね"']}}
+setblock 2042 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "かぜ", "color": "dark_gray", "bold": false}','"20:46"','"待機！"','""']}}
+setblock 2043 153 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ゆきだるま", "color": "blue", "bold": true}','"20:41"','"よし、みんな"','"集まってきたね"']}}
+setblock 2037 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "みかん", "color": "dark_gray", "bold": false}','"20:56"','"ぎりぎり"','"間に合った"']}}
+setblock 2038 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "にじいろ", "color": "blue", "bold": true}','"20:47"','"ながら見の人も"','"ゆっくりしてね"']}}
+setblock 2039 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "ぺんぎん", "color": "dark_gray", "bold": false}','"20:50"','"わくわく"','""']}}
+setblock 2040 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "そらまめ", "color": "blue", "bold": true}','"20:52"','"いよいよだね"','""']}}
+setblock 2041 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "くじら", "color": "dark_gray", "bold": false}','"20:44"','"8888"','""']}}
+setblock 2042 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "もみじ", "color": "blue", "bold": true}','"20:45"','"なつかしい"','"BGMだ"']}}
+setblock 2043 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{messages:['{"text": "たぬき", "color": "dark_gray", "bold": false}','"20:53"','"草"','""']}}
+# 配信者ロッカー（暗証番号 4721 で開いて伝言の本が出てくる）
 fill 2035 151 2003 2035 153 2005 minecraft:bookshelf
-setblock 2035 151 2004 minecraft:barrel[facing=east]{CustomName:'"左の棚"',Items:[{Slot:13b,id:"minecraft:paper",count:1,components:{"minecraft:custom_name":'{"text": "ここじゃない…", "italic": false}'}}]}
-fill 2045 151 2003 2045 153 2005 minecraft:bookshelf
-setblock 2045 151 2004 minecraft:barrel[facing=west]{CustomName:'"右の棚"',Items:[{Slot:13b,id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"伝言",author:"配信者",pages:['"スタッフさんへ\\n\\n今日は声だけの配信。顔は映さないよ。\\n\\n声が届かなかったら意味ないよね。"','"BGMはマイクと反対にしておいて。\\n\\n照明はカメラと逆で！\\n\\nよろしくね。"']}}}]}
+fill 2045 151 2002 2045 153 2006 minecraft:bookshelf
+fill 2045 151 2004 2045 152 2004 minecraft:iron_block
+setblock 2044 152 2004 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{messages:['"配信者ロッカー"','"暗証番号4桁"','"/trigger code"','"set 番号"']}}
 # 配信卓とレバー
 # 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）
 fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab

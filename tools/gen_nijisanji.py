@@ -173,17 +173,21 @@ b += [
 
 # ---- 3. 配信ブース
 COMMENTS = [
-    # x, y, 名前, モデレーターか, 時刻, 本文2行
-    (2037, 153, "あめふり", True, "20:57", ["なんか音が", "出てないかも？"]),
-    (2038, 153, "ねこまる", False, "20:51", ["初見です", ""]),
-    (2039, 153, "ゆきだるま", True, "20:52", ["ぎりぎり", "間に合った"]),
-    (2040, 153, "とまと", False, "20:53", ["8888", ""]),
-    (2041, 153, "ほしぞら", True, "20:50", ["みんな、もうすぐ", "始まるよ！"]),
-    (2039, 152, "かぜ", False, "20:55", ["待機！", ""]),
-    (2040, 152, "つきみ", True, "20:56", ["たのしみにしてた", "人、多いね"]),
-    (2041, 152, "みかん", False, "20:58", ["こんばんは〜", ""]),
-    (2042, 152, "にじいろ", True, "20:54", ["のど飴の準備は", "大丈夫？"]),
-    (2043, 152, "ぺんぎん", False, "20:49", ["わくわく", ""]),
+    # x, y, 名前, モデレーターか, 時刻, 本文2行。青い名前（モデレーター）を古い順に並べた頭文字が「よんななにいち」＝4721
+    (2037, 153, "つきみ", True, "20:49", ["にぎやかに", "なってきた"]),
+    (2038, 153, "ねこまる", False, "20:42", ["初見です", ""]),
+    (2039, 153, "ほしぞら", True, "20:43", ["ん？音量", "小さくない？"]),
+    (2040, 153, "とまと", False, "20:48", ["こんばんは〜", ""]),
+    (2041, 153, "あめふり", True, "20:55", ["ちゃんと水分", "とってね"]),
+    (2042, 153, "かぜ", False, "20:46", ["待機！", ""]),
+    (2043, 153, "ゆきだるま", True, "20:41", ["よし、みんな", "集まってきたね"]),
+    (2037, 152, "みかん", False, "20:56", ["ぎりぎり", "間に合った"]),
+    (2038, 152, "にじいろ", True, "20:47", ["ながら見の人も", "ゆっくりしてね"]),
+    (2039, 152, "ぺんぎん", False, "20:50", ["わくわく", ""]),
+    (2040, 152, "そらまめ", True, "20:52", ["いよいよだね", ""]),
+    (2041, 152, "くじら", False, "20:44", ["8888", ""]),
+    (2042, 152, "もみじ", True, "20:45", ["なつかしい", "BGMだ"]),
+    (2043, 152, "たぬき", False, "20:53", ["草", ""]),
 ]
 book = (
     '"minecraft:written_book_content":{title:"伝言",author:"配信者",pages:['
@@ -201,11 +205,11 @@ for x, y, name, mod, t, text in COMMENTS:
     name_c = js(name, color="blue" if mod else "dark_gray", bold=mod)
     b.append(sign(x, y, 2001, "south", [name_c, t] + text, wood="birch"))
 b += [
-    "# 棚（左はハズレ、右に伝言の本）",
+    "# 配信者ロッカー（暗証番号 4721 で開いて伝言の本が出てくる）",
     "fill 2035 151 2003 2035 153 2005 minecraft:bookshelf",
-    f"setblock 2035 151 2004 minecraft:barrel[facing=east]{{CustomName:'\"左の棚\"',Items:[{item('paper', 'ここじゃない…')}]}}",
-    "fill 2045 151 2003 2045 153 2005 minecraft:bookshelf",
-    f"setblock 2045 151 2004 minecraft:barrel[facing=west]{{CustomName:'\"右の棚\"',Items:[{item('written_book', extra=book)}]}}",
+    "fill 2045 151 2002 2045 153 2006 minecraft:bookshelf",
+    "fill 2045 151 2004 2045 152 2004 minecraft:iron_block",
+    sign(2044, 152, 2004, "west", ["配信者ロッカー", "暗証番号4桁", "/trigger code", "set 番号"], wood="dark_oak"),
     "# 配信卓とレバー",
     "# 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）",
     "fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab",
@@ -272,7 +276,7 @@ story2 = "ライバーさんたちのメモを頼りにロックを解除し、�
 f("start",
   "# ゲーム開始（何度でもやり直せる）",
   "function niji:build",
-  *[f"scoreboard players set #{k} niji 0" for k in ["door0", "door1", "door2", "door3", "door4", "seq", "time", "hints"]],
+  *[f"scoreboard players set #{k} niji 0" for k in ["door0", "door1", "door2", "door3", "door4", "locker", "seq", "time", "hints"]],
   "scoreboard players set #running niji 1",
   "scoreboard players set @a code 0",
   "clear @a",
@@ -312,7 +316,7 @@ gt = [
     "if items block 2030 151 2001 container.* minecraft:cookie run function niji:open/door2",
     "",
     "# 謎3：マイクON・カメラOFF・BGM OFF・照明ON",
-    "execute if score #door2 niji matches 1 if score #door3 niji matches 0 "
+    "execute if score #locker niji matches 1 if score #door3 niji matches 0 "
     "if block 2038 152 2008 minecraft:lever[powered=true] "
     "if block 2040 152 2008 minecraft:lever[powered=false] "
     "if block 2042 152 2008 minecraft:lever[powered=false] "
@@ -333,6 +337,7 @@ f("code",
   "scoreboard players set #ok niji 0",
   "execute if score #door0 niji matches 0 if score @s code matches 1 run function niji:open/door0",
   "execute if score #door0 niji matches 1 if score #door1 niji matches 0 if score @s code matches 3142 run function niji:open/door1",
+  "execute if score #door2 niji matches 1 if score #locker niji matches 0 if score @s code matches 4721 run function niji:open/locker",
   "execute if score #door3 niji matches 1 if score #door4 niji matches 0 if score @s code matches 4173 run function niji:open/door4",
   'execute if score #ok niji matches 0 run tellraw @s [{"text":"コード ","color":"red"},{"score":{"name":"@s","objective":"code"},"color":"red"},{"text":" は違うみたい…","color":"red"}]',
   "execute if score #ok niji matches 0 run playsound minecraft:entity.villager.no master @s ~ ~ ~ 1 1",
@@ -347,6 +352,14 @@ for i, (w, msg) in enumerate(zip(WALLS, DOOR_MSG)):
       f"fill {w} 151 {DOOR_Z} {w} 152 {DOOR_Z} minecraft:air",
       f'tellraw @a {{"text":"{msg}","color":"green"}}',
       "execute as @a at @s run playsound minecraft:block.iron_door.open master @s ~ ~ ~ 1 1")
+
+f("open/locker",
+  "scoreboard players set #locker niji 1",
+  "scoreboard players set #ok niji 1",
+  "setblock 2045 152 2004 minecraft:bookshelf",
+  f"setblock 2045 151 2004 minecraft:barrel[facing=west]{{CustomName:'\"配信者ロッカー\"',Items:[{item('written_book', extra=book)}]}}",
+  'tellraw @a {"text":"カチッ…配信者ロッカーが開いた！","color":"green"}',
+  "execute as @a at @s run playsound minecraft:block.chest.open master @s ~ ~ ~ 1 1")
 
 # ---- 文字ボタン
 NEED = {"ha": 0, "i": 1, "shi": 2}
@@ -397,7 +410,7 @@ f("clear",
 HINTS = {
     1: ["条件に合うものだけ数えよう", "カウンターの裏と、受付の内側も見た？", "答えは 3142"],
     2: ["発注メモの4つから、決めやすい人から埋めよう", "Aは金のニンジン、Bはりんご", "A金のニンジン・Bりんご・Cケーキ・Dクッキー"],
-    3: ["青い名前のコメントを時刻の古い順に", "「みぎのたな」。伝言はカメラから決めよう", "マイクON・カメラOFF・BGM OFF・照明ON"],
+    3: ["青い名前のコメントだけを、時刻の古い順に並べよう", "頭文字は「よんななにいち」。ロッカーを開けたら、伝言はカメラから決めよう", "ロッカーは 4721。レバーはマイクON・カメラOFF・BGM OFF・照明ON"],
     4: ["天井の虹は数字の表", "鏡なので右から読む", "答えは 4173"],
     5: ["かけらの色に注目", "赤→黄→青→紫の順に並べよう", "は→い→し→ん の順に押す"],
 }
