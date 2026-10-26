@@ -40,7 +40,7 @@ Minecraft Java版 1.21.4 用の脱出ゲームのデータパックです。
 
 ## 友だちに配る（にじさんじ脱出ゲーム）
 
-[Releases](https://github.com/koogal/micra/releases) から `nijisanji_escape.zip` をダウンロードして渡すだけです。遊ぶ人は次の手順で始められます（Java版 1.21.4、チートはOFFのままでOK）。
+[nijisanji_escape.zip](https://github.com/koogal/micra/raw/main/dist/nijisanji_escape.zip) をダウンロードして渡すだけです（`dist/` に入っています）。遊ぶ人は次の手順で始められます（Java版 1.21.4、チートはOFFのままでOK）。
 
 1. シングルプレイ →「新しいワールドを作成」→「データパック」を開き、`nijisanji_escape.zip` をウィンドウにドラッグして「選択済み」側に移す
 2. そのままワールドを作成して入ると、自動でステージが建ってロビーからゲームが始まる

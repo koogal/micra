@@ -2,6 +2,7 @@
 import json
 import os
 import shutil
+import zipfile
 import sys
 
 OUT = sys.argv[1]
@@ -508,3 +509,16 @@ with open(os.path.join(OUT, "pack.mcmeta"), "w", encoding="utf-8") as fh:
     json.dump({"pack": {"pack_format": 61, "description": "にじさんじ脱出ゲーム 難易度1 ベータ版 (Java 1.21.4)"}}, fh, ensure_ascii=False, indent=2)
     fh.write("\n")
 print("wrote", len(files), "functions")
+
+# 配布用zip（pack.mcmeta がzipの直下に来る形。ワールド作成画面にそのままドラッグできる）
+dist = os.path.join(os.path.dirname(os.path.abspath(OUT)), "dist", "nijisanji_escape.zip")
+os.makedirs(os.path.dirname(dist), exist_ok=True)
+with zipfile.ZipFile(dist, "w", zipfile.ZIP_DEFLATED) as zf:
+    for root, _dirs, names in os.walk(OUT):
+        for n in sorted(names):
+            full = os.path.join(root, n)
+            info = zipfile.ZipInfo(os.path.relpath(full, OUT).replace(os.sep, "/"), date_time=(2026, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            with open(full, "rb") as fh:
+                zf.writestr(info, fh.read())
+print("wrote", dist)
