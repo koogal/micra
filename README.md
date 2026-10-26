@@ -37,3 +37,12 @@ Minecraft Java版 1.21.4 用の脱出ゲームのデータパックです。
 ステージは x=2000〜2074、y=150〜157、z=2000〜2012 に建ちます。各部屋の左の壁にあるボタン①②③でヒントが出ます。
 
 `tools/gen_nijisanji.py` を実行するとデータパックを作り直せます（`python3 tools/gen_nijisanji.py nijisanji_escape`）。
+
+## 友だちに配る（にじさんじ脱出ゲーム）
+
+[nijisanji_escape.zip](https://github.com/koogal/micra/raw/main/dist/nijisanji_escape.zip) をダウンロードして渡すだけです（`dist/` に入っています）。遊ぶ人は次の手順で始められます（Java版 1.21.4、チートはOFFのままでOK）。
+
+1. シングルプレイ →「新しいワールドを作成」→「データパック」を開き、`nijisanji_escape.zip` をウィンドウにドラッグして「選択済み」側に移す
+2. そのままワールドを作成して入ると、自動でステージが建ってロビーからゲームが始まる
+3. 答えは `/trigger code set <数字>`、最初からやり直すときは `/trigger restart`
+4. みんなで遊ぶときは、1人がワールドを開いて「LANに公開」する（途中から入った人にも本が配られる）

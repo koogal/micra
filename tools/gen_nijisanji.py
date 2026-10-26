@@ -2,6 +2,7 @@
 import json
 import os
 import shutil
+import zipfile
 import sys
 
 OUT = sys.argv[1]
@@ -296,13 +297,40 @@ f("load",
   "# データパック読み込み時に実行される",
   "scoreboard objectives add niji dummy",
   "scoreboard objectives add code trigger",
+  "scoreboard objectives add restart trigger",
   "execute unless score #running niji matches 0.. run scoreboard players set #running niji 0",
+  "execute unless score #init niji matches 1 run function niji:first_load",
   "forceload add 2000 2000 2074 2012",
-  'tellraw @a [{"text":"[にじさんじ脱出] ","color":"light_purple"},{"text":"読み込み完了！ /function niji:start でゲーム開始","color":"white"}]')
+  'tellraw @a [{"text":"[にじさんじ脱出] ","color":"light_purple"},{"text":"読み込み完了！","color":"white"}]')
 
 f("tick",
   "# 毎tick実行。ゲーム中だけ判定を動かす",
+  "execute if score #pending niji matches 1 if entity @a run function niji:autostart",
+  "# /trigger restart で誰でも最初からやり直せる（チートOFFでも使える）",
+  "scoreboard players enable @a restart",
+  "execute if entity @a[scores={restart=1..}] run function niji:start",
+  "scoreboard players set @a restart 0",
   "execute if score #running niji matches 1 run function niji:game_tick")
+
+# ---- 配布用：ワールドに初めて読み込まれたとき、設定をしてプレイヤーが来たら自動でゲームを始める（チートOFFでも動く）
+f("first_load",
+  "# このワールドで初めてデータパックが読み込まれたときに一度だけ実行",
+  "scoreboard players set #init niji 1",
+  "scoreboard players set #pending niji 1",
+  "gamerule doDaylightCycle false",
+  "gamerule doWeatherCycle false",
+  "gamerule doMobSpawning false",
+  "gamerule keepInventory true",
+  "gamerule spawnRadius 0",
+  "difficulty peaceful",
+  "time set 18000",
+  "weather clear",
+  "setworldspawn 2003 151 2006",
+  "defaultgamemode adventure")
+f("autostart",
+  "# ワールドに初めて入ったときに一度だけゲームを始める",
+  "scoreboard players set #pending niji 0",
+  "function niji:start")
 
 story1 = "今日はにじさんじ配信スタジオでの初出勤日。\n\n深夜0時からは大事な記念配信がある。\n\nところが停電でセキュリティが誤作動し、扉が全部ロックされてしまった！"
 story2 = "ライバーさんたちのメモを頼りにロックを解除し、記念配信データのかけら4つを集めて、メインスタジオで配信を始めよう。\n\n※非公式の二次創作です"
@@ -315,6 +343,7 @@ f("start",
   "clear @a",
   "effect clear @a",
   "gamemode adventure @a",
+  "tag @a add niji_player",
   "tp @a 2003.5 151 2006.5 -90 0",
   f'give @a minecraft:written_book[minecraft:written_book_content={{title:"はじめに",author:"スタジオ",pages:[{js(story1)},{js(story2)}]}}]',
   "title @a times 10 60 20",
@@ -322,6 +351,12 @@ f("start",
   'title @a title {"text":"深夜のスタジオ","color":"light_purple","bold":true}',
   "execute as @a at @s run playsound minecraft:block.iron_door.close master @s ~ ~ ~ 1 0.5")
 
+f("join",
+  "# ゲームの途中から入ってきたプレイヤー（マルチプレイ用）",
+  "tag @s add niji_player",
+  "gamemode adventure @s",
+  f'give @s minecraft:written_book[minecraft:written_book_content={{title:"はじめに",author:"スタジオ",pages:[{js(story1)},{js(story2)}]}}]',
+  'tellraw @s {"text":"ゲームは進行中です。仲間と合流しよう！","color":"light_purple"}')
 f("stop",
   "# ゲームを中断してクリエイティブに戻す（編集・テスト用）",
   "scoreboard players set #running niji 0",
@@ -330,6 +365,7 @@ f("stop",
 
 gt = [
     "scoreboard players add #time niji 1",
+    "execute as @a[tag=!niji_player] run function niji:join",
     "",
     "# 数字の入力（/trigger code set 数字）",
     "scoreboard players enable @a code",
@@ -473,3 +509,16 @@ with open(os.path.join(OUT, "pack.mcmeta"), "w", encoding="utf-8") as fh:
     json.dump({"pack": {"pack_format": 61, "description": "にじさんじ脱出ゲーム 難易度1 ベータ版 (Java 1.21.4)"}}, fh, ensure_ascii=False, indent=2)
     fh.write("\n")
 print("wrote", len(files), "functions")
+
+# 配布用zip（pack.mcmeta がzipの直下に来る形。ワールド作成画面にそのままドラッグできる）
+dist = os.path.join(os.path.dirname(os.path.abspath(OUT)), "dist", "nijisanji_escape.zip")
+os.makedirs(os.path.dirname(dist), exist_ok=True)
+with zipfile.ZipFile(dist, "w", zipfile.ZIP_DEFLATED) as zf:
+    for root, _dirs, names in os.walk(OUT):
+        for n in sorted(names):
+            full = os.path.join(root, n)
+            info = zipfile.ZipInfo(os.path.relpath(full, OUT).replace(os.sep, "/"), date_time=(2026, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            with open(full, "rb") as fh:
+                zf.writestr(info, fh.read())
+print("wrote", dist)
