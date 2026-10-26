@@ -54,27 +54,53 @@ b += [
     "# ===== ステージを建てる（毎回作り直すのでリセットにもなる） =====",
     "kill @e[type=minecraft:item_frame,tag=niji]",
     "fill 2000 150 2000 2074 156 2012 minecraft:stone_bricks hollow",
-    "fill 2001 150 2001 2009 150 2011 minecraft:polished_andesite",
-    "fill 2011 150 2001 2021 150 2011 minecraft:smooth_quartz",
-    "fill 2023 150 2001 2033 150 2011 minecraft:oak_planks",
-    "fill 2035 150 2001 2045 150 2011 minecraft:gray_concrete",
-    "fill 2047 150 2001 2059 150 2011 minecraft:polished_andesite",
-    "fill 2061 150 2001 2073 150 2011 minecraft:smooth_quartz",
-    "# 仕切り壁と扉（鉄格子）",
+    "# 部屋ごとの内装（壁・腰壁・床・天井）",
 ]
+# 部屋の内側の x 範囲と内装：(x1, x2, 壁, 腰壁, 床, 天井)
+ROOMS = [
+    (2001, 2009, "quartz_bricks", "purple_terracotta", "dark_oak_planks", "smooth_quartz"),       # ロビー
+    (2011, 2021, "smooth_quartz", "light_blue_terracotta", "polished_diorite", "white_concrete"),  # エントランス
+    (2023, 2033, "cherry_planks", "pink_terracotta", "birch_planks", "white_concrete"),           # 楽屋
+    (2035, 2045, "gray_wool", "black_wool", "gray_concrete", "black_wool"),                       # 配信ブース
+    (2047, 2059, "white_terracotta", "cyan_terracotta", "polished_deepslate", "white_concrete"),  # 編集室（天井は虹）
+    (2061, 2073, "black_concrete", "purple_concrete", "smooth_quartz", "black_concrete"),          # メインスタジオ
+]
+# 仕切り壁は西側の部屋の壁と同じ素材にする
+PARTITION = {2010: "quartz_bricks", 2022: "smooth_quartz", 2034: "cherry_planks", 2046: "gray_wool", 2060: "white_terracotta"}
+for x1, x2, wall, base, floor, ceil in ROOMS:
+    for z in (2000, 2012):
+        b.append(f"fill {x1} 151 {z} {x2} 155 {z} minecraft:{wall}")
+        b.append(f"fill {x1} 151 {z} {x2} 151 {z} minecraft:{base}")
+    b.append(f"fill {x1} 150 2001 {x2} 150 2011 minecraft:{floor}")
+    b.append(f"fill {x1} 156 2001 {x2} 156 2011 minecraft:{ceil}")
+b.append("fill 2000 151 2001 2000 155 2011 minecraft:quartz_bricks")
+b.append("fill 2074 151 2001 2074 155 2011 minecraft:black_concrete")
+b.append("# 仕切り壁と扉（鉄格子）")
 for w in WALLS:
-    b.append(f"fill {w} 151 2001 {w} 155 2011 minecraft:stone_bricks")
+    b.append(f"fill {w} 151 2001 {w} 155 2011 minecraft:{PARTITION[w]}")
     b.append(f"fill {w} 151 {DOOR_Z} {w} 152 {DOOR_Z} minecraft:iron_bars")
+b.append("# 天井の照明（シーランタンを格子状に。編集室は虹の天井なので床に置く）")
+for i, (x1, x2, *_rest) in enumerate(ROOMS):
+    if i == 4:
+        continue
+    for x in range(x1 + 1, x2, 3):
+        for z in (2003, 2006, 2009):
+            b.append(f"setblock {x} 156 {z} minecraft:sea_lantern")
+for x, z in [(2048, 2006), (2053, 2006), (2052, 2010), (2058, 2003)]:
+    b.append(f"setblock {x} 150 {z} minecraft:sea_lantern")
 b += [
-    "# 照明",
-    "setblock 2005 156 2006 minecraft:sea_lantern",
-    "setblock 2017 156 2006 minecraft:sea_lantern",
-    "setblock 2028 156 2004 minecraft:sea_lantern",
-    "setblock 2028 156 2008 minecraft:sea_lantern",
-    "setblock 2040 156 2004 minecraft:sea_lantern",
-    "setblock 2040 156 2009 minecraft:sea_lantern",
-    "setblock 2067 156 2003 minecraft:sea_lantern",
-    "setblock 2067 156 2009 minecraft:sea_lantern",
+    "# 飾り：ロビーとスタジオの壁に虹のライン、ロビーと楽屋にラグ",
+]
+RAINBOW_LINE = ["red", "orange", "yellow", "lime", "light_blue", "blue", "purple"]
+for x in range(2001, 2010):
+    b.append(f"setblock {x} 155 2000 minecraft:{RAINBOW_LINE[(x - 2001) % 7]}_wool")
+for x in range(2061, 2074):
+    for z in (2000, 2012):
+        b.append(f"setblock {x} 155 {z} minecraft:{RAINBOW_LINE[(x - 2061) % 7]}_wool")
+b += [
+    "fill 2003 151 2004 2007 151 2008 minecraft:purple_carpet",
+    "fill 2024 151 2004 2031 151 2008 minecraft:pink_carpet",
+    "fill 2036 151 2010 2044 151 2010 minecraft:black_carpet",
 ]
 
 # ---- ロビー
@@ -207,9 +233,9 @@ for x, y, name, mod, t, text in COMMENTS:
 b += [
     "# 配信者ロッカー（暗証番号 4721 で開いて伝言の本が出てくる）",
     "fill 2035 151 2003 2035 153 2005 minecraft:bookshelf",
-    "fill 2045 151 2002 2045 153 2006 minecraft:bookshelf",
-    "fill 2045 151 2004 2045 152 2004 minecraft:iron_block",
-    sign(2044, 152, 2004, "west", ["配信者ロッカー", "暗証番号4桁", "/trigger code", "set 番号"], wood="dark_oak"),
+    "fill 2045 151 2001 2045 153 2005 minecraft:bookshelf",
+    "fill 2045 151 2003 2045 152 2003 minecraft:iron_block",
+    sign(2044, 152, 2003, "west", ["配信者ロッカー", "暗証番号4桁", "/trigger code", "set 番号"], wood="dark_oak"),
     "# 配信卓とレバー",
     "# 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）",
     "fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab",
@@ -363,8 +389,8 @@ for i, (w, msg) in enumerate(zip(WALLS, DOOR_MSG)):
 f("open/locker",
   "scoreboard players set #locker niji 1",
   "scoreboard players set #ok niji 1",
-  "setblock 2045 152 2004 minecraft:bookshelf",
-  f"setblock 2045 151 2004 minecraft:barrel[facing=west]{{CustomName:'\"配信者ロッカー\"',Items:[{item('written_book', extra=book)}]}}",
+  "setblock 2045 152 2003 minecraft:bookshelf",
+  f"setblock 2045 151 2003 minecraft:barrel[facing=west]{{CustomName:'\"配信者ロッカー\"',Items:[{item('written_book', extra=book)}]}}",
   'tellraw @a {"text":"カチッ…配信者ロッカーが開いた！","color":"green"}',
   "execute as @a at @s run playsound minecraft:block.chest.open master @s ~ ~ ~ 1 1")
 

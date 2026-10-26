@@ -1,32 +1,148 @@
 # ===== ステージを建てる（毎回作り直すのでリセットにもなる） =====
 kill @e[type=minecraft:item_frame,tag=niji]
 fill 2000 150 2000 2074 156 2012 minecraft:stone_bricks hollow
-fill 2001 150 2001 2009 150 2011 minecraft:polished_andesite
-fill 2011 150 2001 2021 150 2011 minecraft:smooth_quartz
-fill 2023 150 2001 2033 150 2011 minecraft:oak_planks
+# 部屋ごとの内装（壁・腰壁・床・天井）
+fill 2001 151 2000 2009 155 2000 minecraft:quartz_bricks
+fill 2001 151 2000 2009 151 2000 minecraft:purple_terracotta
+fill 2001 151 2012 2009 155 2012 minecraft:quartz_bricks
+fill 2001 151 2012 2009 151 2012 minecraft:purple_terracotta
+fill 2001 150 2001 2009 150 2011 minecraft:dark_oak_planks
+fill 2001 156 2001 2009 156 2011 minecraft:smooth_quartz
+fill 2011 151 2000 2021 155 2000 minecraft:smooth_quartz
+fill 2011 151 2000 2021 151 2000 minecraft:light_blue_terracotta
+fill 2011 151 2012 2021 155 2012 minecraft:smooth_quartz
+fill 2011 151 2012 2021 151 2012 minecraft:light_blue_terracotta
+fill 2011 150 2001 2021 150 2011 minecraft:polished_diorite
+fill 2011 156 2001 2021 156 2011 minecraft:white_concrete
+fill 2023 151 2000 2033 155 2000 minecraft:cherry_planks
+fill 2023 151 2000 2033 151 2000 minecraft:pink_terracotta
+fill 2023 151 2012 2033 155 2012 minecraft:cherry_planks
+fill 2023 151 2012 2033 151 2012 minecraft:pink_terracotta
+fill 2023 150 2001 2033 150 2011 minecraft:birch_planks
+fill 2023 156 2001 2033 156 2011 minecraft:white_concrete
+fill 2035 151 2000 2045 155 2000 minecraft:gray_wool
+fill 2035 151 2000 2045 151 2000 minecraft:black_wool
+fill 2035 151 2012 2045 155 2012 minecraft:gray_wool
+fill 2035 151 2012 2045 151 2012 minecraft:black_wool
 fill 2035 150 2001 2045 150 2011 minecraft:gray_concrete
-fill 2047 150 2001 2059 150 2011 minecraft:polished_andesite
+fill 2035 156 2001 2045 156 2011 minecraft:black_wool
+fill 2047 151 2000 2059 155 2000 minecraft:white_terracotta
+fill 2047 151 2000 2059 151 2000 minecraft:cyan_terracotta
+fill 2047 151 2012 2059 155 2012 minecraft:white_terracotta
+fill 2047 151 2012 2059 151 2012 minecraft:cyan_terracotta
+fill 2047 150 2001 2059 150 2011 minecraft:polished_deepslate
+fill 2047 156 2001 2059 156 2011 minecraft:white_concrete
+fill 2061 151 2000 2073 155 2000 minecraft:black_concrete
+fill 2061 151 2000 2073 151 2000 minecraft:purple_concrete
+fill 2061 151 2012 2073 155 2012 minecraft:black_concrete
+fill 2061 151 2012 2073 151 2012 minecraft:purple_concrete
 fill 2061 150 2001 2073 150 2011 minecraft:smooth_quartz
+fill 2061 156 2001 2073 156 2011 minecraft:black_concrete
+fill 2000 151 2001 2000 155 2011 minecraft:quartz_bricks
+fill 2074 151 2001 2074 155 2011 minecraft:black_concrete
 # 仕切り壁と扉（鉄格子）
-fill 2010 151 2001 2010 155 2011 minecraft:stone_bricks
+fill 2010 151 2001 2010 155 2011 minecraft:quartz_bricks
 fill 2010 151 2006 2010 152 2006 minecraft:iron_bars
-fill 2022 151 2001 2022 155 2011 minecraft:stone_bricks
+fill 2022 151 2001 2022 155 2011 minecraft:smooth_quartz
 fill 2022 151 2006 2022 152 2006 minecraft:iron_bars
-fill 2034 151 2001 2034 155 2011 minecraft:stone_bricks
+fill 2034 151 2001 2034 155 2011 minecraft:cherry_planks
 fill 2034 151 2006 2034 152 2006 minecraft:iron_bars
-fill 2046 151 2001 2046 155 2011 minecraft:stone_bricks
+fill 2046 151 2001 2046 155 2011 minecraft:gray_wool
 fill 2046 151 2006 2046 152 2006 minecraft:iron_bars
-fill 2060 151 2001 2060 155 2011 minecraft:stone_bricks
+fill 2060 151 2001 2060 155 2011 minecraft:white_terracotta
 fill 2060 151 2006 2060 152 2006 minecraft:iron_bars
-# 照明
+# 天井の照明（シーランタンを格子状に。編集室は虹の天井なので床に置く）
+setblock 2002 156 2003 minecraft:sea_lantern
+setblock 2002 156 2006 minecraft:sea_lantern
+setblock 2002 156 2009 minecraft:sea_lantern
+setblock 2005 156 2003 minecraft:sea_lantern
 setblock 2005 156 2006 minecraft:sea_lantern
-setblock 2017 156 2006 minecraft:sea_lantern
-setblock 2028 156 2004 minecraft:sea_lantern
-setblock 2028 156 2008 minecraft:sea_lantern
-setblock 2040 156 2004 minecraft:sea_lantern
-setblock 2040 156 2009 minecraft:sea_lantern
-setblock 2067 156 2003 minecraft:sea_lantern
-setblock 2067 156 2009 minecraft:sea_lantern
+setblock 2005 156 2009 minecraft:sea_lantern
+setblock 2008 156 2003 minecraft:sea_lantern
+setblock 2008 156 2006 minecraft:sea_lantern
+setblock 2008 156 2009 minecraft:sea_lantern
+setblock 2012 156 2003 minecraft:sea_lantern
+setblock 2012 156 2006 minecraft:sea_lantern
+setblock 2012 156 2009 minecraft:sea_lantern
+setblock 2015 156 2003 minecraft:sea_lantern
+setblock 2015 156 2006 minecraft:sea_lantern
+setblock 2015 156 2009 minecraft:sea_lantern
+setblock 2018 156 2003 minecraft:sea_lantern
+setblock 2018 156 2006 minecraft:sea_lantern
+setblock 2018 156 2009 minecraft:sea_lantern
+setblock 2024 156 2003 minecraft:sea_lantern
+setblock 2024 156 2006 minecraft:sea_lantern
+setblock 2024 156 2009 minecraft:sea_lantern
+setblock 2027 156 2003 minecraft:sea_lantern
+setblock 2027 156 2006 minecraft:sea_lantern
+setblock 2027 156 2009 minecraft:sea_lantern
+setblock 2030 156 2003 minecraft:sea_lantern
+setblock 2030 156 2006 minecraft:sea_lantern
+setblock 2030 156 2009 minecraft:sea_lantern
+setblock 2036 156 2003 minecraft:sea_lantern
+setblock 2036 156 2006 minecraft:sea_lantern
+setblock 2036 156 2009 minecraft:sea_lantern
+setblock 2039 156 2003 minecraft:sea_lantern
+setblock 2039 156 2006 minecraft:sea_lantern
+setblock 2039 156 2009 minecraft:sea_lantern
+setblock 2042 156 2003 minecraft:sea_lantern
+setblock 2042 156 2006 minecraft:sea_lantern
+setblock 2042 156 2009 minecraft:sea_lantern
+setblock 2062 156 2003 minecraft:sea_lantern
+setblock 2062 156 2006 minecraft:sea_lantern
+setblock 2062 156 2009 minecraft:sea_lantern
+setblock 2065 156 2003 minecraft:sea_lantern
+setblock 2065 156 2006 minecraft:sea_lantern
+setblock 2065 156 2009 minecraft:sea_lantern
+setblock 2068 156 2003 minecraft:sea_lantern
+setblock 2068 156 2006 minecraft:sea_lantern
+setblock 2068 156 2009 minecraft:sea_lantern
+setblock 2071 156 2003 minecraft:sea_lantern
+setblock 2071 156 2006 minecraft:sea_lantern
+setblock 2071 156 2009 minecraft:sea_lantern
+setblock 2048 150 2006 minecraft:sea_lantern
+setblock 2053 150 2006 minecraft:sea_lantern
+setblock 2052 150 2010 minecraft:sea_lantern
+setblock 2058 150 2003 minecraft:sea_lantern
+# 飾り：ロビーとスタジオの壁に虹のライン、ロビーと楽屋にラグ
+setblock 2001 155 2000 minecraft:red_wool
+setblock 2002 155 2000 minecraft:orange_wool
+setblock 2003 155 2000 minecraft:yellow_wool
+setblock 2004 155 2000 minecraft:lime_wool
+setblock 2005 155 2000 minecraft:light_blue_wool
+setblock 2006 155 2000 minecraft:blue_wool
+setblock 2007 155 2000 minecraft:purple_wool
+setblock 2008 155 2000 minecraft:red_wool
+setblock 2009 155 2000 minecraft:orange_wool
+setblock 2061 155 2000 minecraft:red_wool
+setblock 2061 155 2012 minecraft:red_wool
+setblock 2062 155 2000 minecraft:orange_wool
+setblock 2062 155 2012 minecraft:orange_wool
+setblock 2063 155 2000 minecraft:yellow_wool
+setblock 2063 155 2012 minecraft:yellow_wool
+setblock 2064 155 2000 minecraft:lime_wool
+setblock 2064 155 2012 minecraft:lime_wool
+setblock 2065 155 2000 minecraft:light_blue_wool
+setblock 2065 155 2012 minecraft:light_blue_wool
+setblock 2066 155 2000 minecraft:blue_wool
+setblock 2066 155 2012 minecraft:blue_wool
+setblock 2067 155 2000 minecraft:purple_wool
+setblock 2067 155 2012 minecraft:purple_wool
+setblock 2068 155 2000 minecraft:red_wool
+setblock 2068 155 2012 minecraft:red_wool
+setblock 2069 155 2000 minecraft:orange_wool
+setblock 2069 155 2012 minecraft:orange_wool
+setblock 2070 155 2000 minecraft:yellow_wool
+setblock 2070 155 2012 minecraft:yellow_wool
+setblock 2071 155 2000 minecraft:lime_wool
+setblock 2071 155 2012 minecraft:lime_wool
+setblock 2072 155 2000 minecraft:light_blue_wool
+setblock 2072 155 2012 minecraft:light_blue_wool
+setblock 2073 155 2000 minecraft:blue_wool
+setblock 2073 155 2012 minecraft:blue_wool
+fill 2003 151 2004 2007 151 2008 minecraft:purple_carpet
+fill 2024 151 2004 2031 151 2008 minecraft:pink_carpet
+fill 2036 151 2010 2044 151 2010 minecraft:black_carpet
 # ===== 0. ロビー =====
 setblock 2003 152 2001 minecraft:oak_wall_sign[facing=south]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['"にじさんじ"','"脱出ゲーム"','"深夜のスタジオ"','"非公式の二次創作"']}}
 setblock 2005 152 2001 minecraft:oak_wall_sign[facing=south]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['"数字の答えは"','"チャットで入力"','"/trigger code"','"set 数字"']}}
@@ -136,9 +252,9 @@ setblock 2042 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front
 setblock 2043 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['{"text": "たぬき", "color": "dark_gray", "bold": false}','"20:53"','"草"','""']}}
 # 配信者ロッカー（暗証番号 4721 で開いて伝言の本が出てくる）
 fill 2035 151 2003 2035 153 2005 minecraft:bookshelf
-fill 2045 151 2002 2045 153 2006 minecraft:bookshelf
-fill 2045 151 2004 2045 152 2004 minecraft:iron_block
-setblock 2044 152 2004 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['"配信者ロッカー"','"暗証番号4桁"','"/trigger code"','"set 番号"']}}
+fill 2045 151 2001 2045 153 2005 minecraft:bookshelf
+fill 2045 151 2003 2045 152 2003 minecraft:iron_block
+setblock 2044 152 2003 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['"配信者ロッカー"','"暗証番号4桁"','"/trigger code"','"set 番号"']}}
 # 配信卓とレバー
 # 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）
 fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab
