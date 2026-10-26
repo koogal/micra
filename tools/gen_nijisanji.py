@@ -207,9 +207,9 @@ for x, y, name, mod, t, text in COMMENTS:
 b += [
     "# 配信者ロッカー（暗証番号 4721 で開いて伝言の本が出てくる）",
     "fill 2035 151 2003 2035 153 2005 minecraft:bookshelf",
-    "fill 2045 151 2002 2045 153 2006 minecraft:bookshelf",
-    "fill 2045 151 2004 2045 152 2004 minecraft:iron_block",
-    sign(2044, 152, 2004, "west", ["配信者ロッカー", "暗証番号4桁", "/trigger code", "set 番号"], wood="dark_oak"),
+    "fill 2045 151 2001 2045 153 2005 minecraft:bookshelf",
+    "fill 2045 151 2003 2045 152 2003 minecraft:iron_block",
+    sign(2044, 152, 2003, "west", ["配信者ロッカー", "暗証番号4桁", "/trigger code", "set 番号"], wood="dark_oak"),
     "# 配信卓とレバー",
     "# 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）",
     "fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab",
@@ -363,8 +363,8 @@ for i, (w, msg) in enumerate(zip(WALLS, DOOR_MSG)):
 f("open/locker",
   "scoreboard players set #locker niji 1",
   "scoreboard players set #ok niji 1",
-  "setblock 2045 152 2004 minecraft:bookshelf",
-  f"setblock 2045 151 2004 minecraft:barrel[facing=west]{{CustomName:'\"配信者ロッカー\"',Items:[{item('written_book', extra=book)}]}}",
+  "setblock 2045 152 2003 minecraft:bookshelf",
+  f"setblock 2045 151 2003 minecraft:barrel[facing=west]{{CustomName:'\"配信者ロッカー\"',Items:[{item('written_book', extra=book)}]}}",
   'tellraw @a {"text":"カチッ…配信者ロッカーが開いた！","color":"green"}',
   "execute as @a at @s run playsound minecraft:block.chest.open master @s ~ ~ ~ 1 1")
 

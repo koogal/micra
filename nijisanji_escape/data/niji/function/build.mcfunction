@@ -136,9 +136,9 @@ setblock 2042 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front
 setblock 2043 152 2001 minecraft:birch_wall_sign[facing=south]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['{"text": "たぬき", "color": "dark_gray", "bold": false}','"20:53"','"草"','""']}}
 # 配信者ロッカー（暗証番号 4721 で開いて伝言の本が出てくる）
 fill 2035 151 2003 2035 153 2005 minecraft:bookshelf
-fill 2045 151 2002 2045 153 2006 minecraft:bookshelf
-fill 2045 151 2004 2045 152 2004 minecraft:iron_block
-setblock 2044 152 2004 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['"配信者ロッカー"','"暗証番号4桁"','"/trigger code"','"set 番号"']}}
+fill 2045 151 2001 2045 153 2005 minecraft:bookshelf
+fill 2045 151 2003 2045 152 2003 minecraft:iron_block
+setblock 2044 152 2003 minecraft:dark_oak_wall_sign[facing=west]{is_waxed:1b,front_text:{has_glowing_text:1b,messages:['"配信者ロッカー"','"暗証番号4桁"','"/trigger code"','"set 番号"']}}
 # 配信卓とレバー
 # 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）
 fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab
