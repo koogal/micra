@@ -1,4 +1,5 @@
 scoreboard players add #time niji 1
+execute as @a[tag=!niji_player] run function niji:join
 
 # 数字の入力（/trigger code set 数字）
 scoreboard players enable @a code

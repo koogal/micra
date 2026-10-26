@@ -297,12 +297,41 @@ f("load",
   "scoreboard objectives add niji dummy",
   "scoreboard objectives add code trigger",
   "execute unless score #running niji matches 0.. run scoreboard players set #running niji 0",
+  "execute if score #autostart niji matches 1 run scoreboard players set #pending niji 1",
   "forceload add 2000 2000 2074 2012",
   'tellraw @a [{"text":"[にじさんじ脱出] ","color":"light_purple"},{"text":"読み込み完了！ /function niji:start でゲーム開始","color":"white"}]')
 
 f("tick",
   "# 毎tick実行。ゲーム中だけ判定を動かす",
+  "execute if score #pending niji matches 1 if entity @a run function niji:autostart",
   "execute if score #running niji matches 1 run function niji:game_tick")
+
+# ---- 配布用：/function niji:prepare でステージを建てて保存すると、次に開いた人は自動でゲームが始まる
+f("prepare",
+  "# 配布用ワールドの準備（作者が一度だけ実行して、そのままセーブして終了する）",
+  "gamerule doDaylightCycle false",
+  "gamerule doWeatherCycle false",
+  "gamerule doMobSpawning false",
+  "gamerule keepInventory true",
+  "gamerule spawnRadius 0",
+  "difficulty peaceful",
+  "time set 18000",
+  "weather clear",
+  "setworldspawn 2003 151 2006",
+  "defaultgamemode adventure",
+  "function niji:build",
+  "scoreboard players set #running niji 0",
+  "scoreboard players set #pending niji 0",
+  "scoreboard players set #autostart niji 1",
+  "clear @a",
+  "gamemode adventure @a",
+  "tp @a 2003.5 151 2006.5 -90 0",
+  'tellraw @a [{"text":"[にじさんじ脱出] ","color":"light_purple"},{"text":"配布の準備ができました。このまま「セーブしてタイトルへ戻る」で終了し、ワールドのフォルダをzipにして配ってください。次にこのワールドを開いた人は、自動でゲームが始まります。","color":"white"}]')
+f("autostart",
+  "# 配布ワールドを開いた最初の一回だけゲームを始める",
+  "scoreboard players set #pending niji 0",
+  "scoreboard players set #autostart niji 0",
+  "function niji:start")
 
 story1 = "今日はにじさんじ配信スタジオでの初出勤日。\n\n深夜0時からは大事な記念配信がある。\n\nところが停電でセキュリティが誤作動し、扉が全部ロックされてしまった！"
 story2 = "ライバーさんたちのメモを頼りにロックを解除し、記念配信データのかけら4つを集めて、メインスタジオで配信を始めよう。\n\n※非公式の二次創作です"
@@ -315,6 +344,7 @@ f("start",
   "clear @a",
   "effect clear @a",
   "gamemode adventure @a",
+  "tag @a add niji_player",
   "tp @a 2003.5 151 2006.5 -90 0",
   f'give @a minecraft:written_book[minecraft:written_book_content={{title:"はじめに",author:"スタジオ",pages:[{js(story1)},{js(story2)}]}}]',
   "title @a times 10 60 20",
@@ -322,6 +352,12 @@ f("start",
   'title @a title {"text":"深夜のスタジオ","color":"light_purple","bold":true}',
   "execute as @a at @s run playsound minecraft:block.iron_door.close master @s ~ ~ ~ 1 0.5")
 
+f("join",
+  "# ゲームの途中から入ってきたプレイヤー（マルチプレイ用）",
+  "tag @s add niji_player",
+  "gamemode adventure @s",
+  f'give @s minecraft:written_book[minecraft:written_book_content={{title:"はじめに",author:"スタジオ",pages:[{js(story1)},{js(story2)}]}}]',
+  'tellraw @s {"text":"ゲームは進行中です。仲間と合流しよう！","color":"light_purple"}')
 f("stop",
   "# ゲームを中断してクリエイティブに戻す（編集・テスト用）",
   "scoreboard players set #running niji 0",
@@ -330,6 +366,7 @@ f("stop",
 
 gt = [
     "scoreboard players add #time niji 1",
+    "execute as @a[tag=!niji_player] run function niji:join",
     "",
     "# 数字の入力（/trigger code set 数字）",
     "scoreboard players enable @a code",
