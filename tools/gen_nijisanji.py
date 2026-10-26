@@ -296,19 +296,26 @@ f("load",
   "# データパック読み込み時に実行される",
   "scoreboard objectives add niji dummy",
   "scoreboard objectives add code trigger",
+  "scoreboard objectives add restart trigger",
   "execute unless score #running niji matches 0.. run scoreboard players set #running niji 0",
-  "execute if score #autostart niji matches 1 run scoreboard players set #pending niji 1",
+  "execute unless score #init niji matches 1 run function niji:first_load",
   "forceload add 2000 2000 2074 2012",
-  'tellraw @a [{"text":"[にじさんじ脱出] ","color":"light_purple"},{"text":"読み込み完了！ /function niji:start でゲーム開始","color":"white"}]')
+  'tellraw @a [{"text":"[にじさんじ脱出] ","color":"light_purple"},{"text":"読み込み完了！","color":"white"}]')
 
 f("tick",
   "# 毎tick実行。ゲーム中だけ判定を動かす",
   "execute if score #pending niji matches 1 if entity @a run function niji:autostart",
+  "# /trigger restart で誰でも最初からやり直せる（チートOFFでも使える）",
+  "scoreboard players enable @a restart",
+  "execute if entity @a[scores={restart=1..}] run function niji:start",
+  "scoreboard players set @a restart 0",
   "execute if score #running niji matches 1 run function niji:game_tick")
 
-# ---- 配布用：/function niji:prepare でステージを建てて保存すると、次に開いた人は自動でゲームが始まる
-f("prepare",
-  "# 配布用ワールドの準備（作者が一度だけ実行して、そのままセーブして終了する）",
+# ---- 配布用：ワールドに初めて読み込まれたとき、設定をしてプレイヤーが来たら自動でゲームを始める（チートOFFでも動く）
+f("first_load",
+  "# このワールドで初めてデータパックが読み込まれたときに一度だけ実行",
+  "scoreboard players set #init niji 1",
+  "scoreboard players set #pending niji 1",
   "gamerule doDaylightCycle false",
   "gamerule doWeatherCycle false",
   "gamerule doMobSpawning false",
@@ -318,19 +325,10 @@ f("prepare",
   "time set 18000",
   "weather clear",
   "setworldspawn 2003 151 2006",
-  "defaultgamemode adventure",
-  "function niji:build",
-  "scoreboard players set #running niji 0",
-  "scoreboard players set #pending niji 0",
-  "scoreboard players set #autostart niji 1",
-  "clear @a",
-  "gamemode adventure @a",
-  "tp @a 2003.5 151 2006.5 -90 0",
-  'tellraw @a [{"text":"[にじさんじ脱出] ","color":"light_purple"},{"text":"配布の準備ができました。このまま「セーブしてタイトルへ戻る」で終了し、ワールドのフォルダをzipにして配ってください。次にこのワールドを開いた人は、自動でゲームが始まります。","color":"white"}]')
+  "defaultgamemode adventure")
 f("autostart",
-  "# 配布ワールドを開いた最初の一回だけゲームを始める",
+  "# ワールドに初めて入ったときに一度だけゲームを始める",
   "scoreboard players set #pending niji 0",
-  "scoreboard players set #autostart niji 0",
   "function niji:start")
 
 story1 = "今日はにじさんじ配信スタジオでの初出勤日。\n\n深夜0時からは大事な記念配信がある。\n\nところが停電でセキュリティが誤作動し、扉が全部ロックされてしまった！"
