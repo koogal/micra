@@ -136,15 +136,20 @@ setblock 2035 151 2004 minecraft:barrel[facing=east]{CustomName:'"左の棚"',It
 fill 2045 151 2003 2045 153 2005 minecraft:bookshelf
 setblock 2045 151 2004 minecraft:barrel[facing=west]{CustomName:'"右の棚"',Items:[{Slot:13b,id:"minecraft:written_book",count:1,components:{"minecraft:written_book_content":{title:"伝言",author:"配信者",pages:['"スタッフさんへ\\n\\n今日は声だけの配信。顔は映さないよ。\\n\\n声が届かなかったら意味ないよね。"','"BGMはマイクと反対にしておいて。\\n\\n照明はカメラと逆で！\\n\\nよろしくね。"']}}}]}
 # 配信卓とレバー
-fill 2039 151 2008 2042 151 2008 minecraft:polished_blackstone
-setblock 2039 152 2008 minecraft:lever[face=floor,facing=north]
-setblock 2039 151 2007 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['""','"マイク"','""','""']}}
+# 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）
+fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab
+setblock 2038 151 2008 minecraft:redstone_lamp
+setblock 2038 152 2008 minecraft:lever[face=floor,facing=north]
+setblock 2038 151 2007 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['""','"マイク"','""','""']}}
+setblock 2040 151 2008 minecraft:redstone_lamp
 setblock 2040 152 2008 minecraft:lever[face=floor,facing=north]
 setblock 2040 151 2007 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['""','"カメラ"','""','""']}}
-setblock 2041 152 2008 minecraft:lever[face=floor,facing=north]
-setblock 2041 151 2007 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['""','"BGM"','""','""']}}
+setblock 2042 151 2008 minecraft:redstone_lamp
 setblock 2042 152 2008 minecraft:lever[face=floor,facing=north]
-setblock 2042 151 2007 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['""','"照明"','""','""']}}
+setblock 2042 151 2007 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['""','"BGM"','""','""']}}
+setblock 2044 151 2008 minecraft:redstone_lamp
+setblock 2044 152 2008 minecraft:lever[face=floor,facing=north]
+setblock 2044 151 2007 minecraft:dark_oak_wall_sign[facing=north]{is_waxed:1b,front_text:{messages:['""','"照明"','""','""']}}
 # ===== 4. 編集室：鏡うつしの虹色暗号 4173 =====
 fill 2048 156 2001 2048 156 2011 minecraft:red_wool
 fill 2049 156 2001 2049 156 2011 minecraft:orange_wool

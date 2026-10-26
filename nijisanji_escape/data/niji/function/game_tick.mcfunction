@@ -13,7 +13,7 @@ execute store result score #bd niji run data get block 2030 151 2001 Items
 execute if score #door1 niji matches 1 if score #door2 niji matches 0 if score #ba niji matches 1 if score #bb niji matches 1 if score #bc niji matches 1 if score #bd niji matches 1 if items block 2024 151 2001 container.* minecraft:golden_carrot if items block 2026 151 2001 container.* minecraft:apple if items block 2028 151 2001 container.* minecraft:cake if items block 2030 151 2001 container.* minecraft:cookie run function niji:open/door2
 
 # 謎3：マイクON・カメラOFF・BGM OFF・照明ON
-execute if score #door2 niji matches 1 if score #door3 niji matches 0 if block 2039 152 2008 minecraft:lever[powered=true] if block 2040 152 2008 minecraft:lever[powered=false] if block 2041 152 2008 minecraft:lever[powered=false] if block 2042 152 2008 minecraft:lever[powered=true] run function niji:open/door3
+execute if score #door2 niji matches 1 if score #door3 niji matches 0 if block 2038 152 2008 minecraft:lever[powered=true] if block 2040 152 2008 minecraft:lever[powered=false] if block 2042 152 2008 minecraft:lever[powered=false] if block 2044 152 2008 minecraft:lever[powered=true] run function niji:open/door3
 
 # 謎5：文字ボタン
 execute if score #door4 niji matches 1 if block 2073 152 2002 minecraft:polished_blackstone_button[powered=true] run function niji:studio/press_decoy_2002

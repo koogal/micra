@@ -42,6 +42,8 @@ def item(id_, name=None, color=None, slot=13, extra=None):
     return f'{{Slot:{slot}b,id:"minecraft:{id_}",count:1{c}}}'
 
 
+LEVER_X = [2038, 2040, 2042, 2044]
+
 # 座標：建物 x2000-2074, y150-156, z2000-2012。部屋の境の壁 x = 2010,2022,2034,2046,2060
 WALLS = [2010, 2022, 2034, 2046, 2060]
 DOOR_Z = 2006
@@ -205,9 +207,11 @@ b += [
     "fill 2045 151 2003 2045 153 2005 minecraft:bookshelf",
     f"setblock 2045 151 2004 minecraft:barrel[facing=west]{{CustomName:'\"右の棚\"',Items:[{item('written_book', extra=book)}]}}",
     "# 配信卓とレバー",
-    "fill 2039 151 2008 2042 151 2008 minecraft:polished_blackstone",
+    "# 台はレッドストーンランプ：レバーをONにすると台が光る（間はハーフブロックで隣に伝わらない）",
+    "fill 2038 151 2008 2044 151 2008 minecraft:polished_blackstone_slab",
 ]
-for x, label in zip(range(2039, 2043), ["マイク", "カメラ", "BGM", "照明"]):
+for x, label in zip(LEVER_X, ["マイク", "カメラ", "BGM", "照明"]):
+    b.append(f"setblock {x} 151 2008 minecraft:redstone_lamp")
     b.append(f"setblock {x} 152 2008 minecraft:lever[face=floor,facing=north]")
     b.append(sign(x, 151, 2007, "north", ["", label, "", ""], wood="dark_oak"))
 
@@ -309,10 +313,10 @@ gt = [
     "",
     "# 謎3：マイクON・カメラOFF・BGM OFF・照明ON",
     "execute if score #door2 niji matches 1 if score #door3 niji matches 0 "
-    "if block 2039 152 2008 minecraft:lever[powered=true] "
+    "if block 2038 152 2008 minecraft:lever[powered=true] "
     "if block 2040 152 2008 minecraft:lever[powered=false] "
-    "if block 2041 152 2008 minecraft:lever[powered=false] "
-    "if block 2042 152 2008 minecraft:lever[powered=true] run function niji:open/door3",
+    "if block 2042 152 2008 minecraft:lever[powered=false] "
+    "if block 2044 152 2008 minecraft:lever[powered=true] run function niji:open/door3",
     "",
     "# 謎5：文字ボタン",
 ]
