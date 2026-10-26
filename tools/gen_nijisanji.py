@@ -26,7 +26,7 @@ def js(text, **kw):
 def sign(x, y, z, facing, lines, wood="oak"):
     lines = (list(lines) + [""] * 4)[:4]
     msgs = ",".join(l if isinstance(l, str) and l.startswith("'") else js(l) for l in lines)
-    return f"setblock {x} {y} {z} minecraft:{wood}_wall_sign[facing={facing}]{{is_waxed:1b,front_text:{{messages:[{msgs}]}}}}"
+    return f"setblock {x} {y} {z} minecraft:{wood}_wall_sign[facing={facing}]{{is_waxed:1b,front_text:{{has_glowing_text:1b,messages:[{msgs}]}}}}"
 
 
 def item(id_, name=None, color=None, slot=13, extra=None):
@@ -247,11 +247,18 @@ LETTERS = [(2002, "さ", "decoy"), (2003, "し", "shi"), (2004, "は", "ha"), (2
 b += [
     "# ===== 5. メインスタジオ：配信開始 =====",
     "fill 2070 150 2001 2073 150 2011 minecraft:purple_concrete",
-    sign(2073, 153, 2006, "west", ["かけらを", "にじの順に", "それが今夜の", "合言葉"], wood="crimson"),
+    sign(2073, 153, 2006, "west", ["かけらを", "にじの順に", "それが今夜の", "合言葉"], wood="birch"),
 ]
 for z, ch, _ in LETTERS:
     b.append(f"setblock 2073 152 {z} minecraft:polished_blackstone_button[face=wall,facing=west]")
-    b.append(sign(2073, 153, z, "west", ["", ch, "", ""], wood="crimson"))
+    b.append(sign(2073, 153, z, "west", ["", ch, "", ""], wood="birch"))
+# 見えない光源ブロックで部屋全体を明るくする（天井近くに格子状に置く）
+b.append("# 見えない光源（light ブロック）で全室を明るくする")
+for x in range(2002, 2074, 3):
+    if x in WALLS:
+        continue
+    for z in (2002, 2006, 2010):
+        b.append(f"setblock {x} 154 {z} minecraft:light[level=15]")
 b += [
     "# 作り直しで散らばったアイテムを消す",
     "kill @e[type=minecraft:item,x=2000,y=150,z=2000,dx=74,dy=8,dz=12]",
